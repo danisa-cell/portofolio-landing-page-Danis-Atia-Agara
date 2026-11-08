@@ -67,6 +67,8 @@ nav.sc{background:rgba(5,8,22,.72);backdrop-filter:blur(16px);-webkit-backdrop-f
 .nav-in{display:flex;align-items:center;justify-content:space-between;gap:20px}
 .logo{font:800 1.25rem var(--f1);display:flex;align-items:center;gap:10px}
 .logo span{width:34px;height:34px;border-radius:10px;background:var(--grad);display:grid;place-items:center;font-size:.9rem;color:#fff;box-shadow:0 0 24px rgba(145,94,255,.55)}
+.logo span{overflow:hidden}
+.logo span img{width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:inherit}
 .menu{display:flex;align-items:center;gap:6px;list-style:none}
 .menu a{padding:8px 15px;border-radius:99px;font-size:.92rem;color:var(--mut);transition:.25s}
 .menu a:hover,.menu a.act{color:#fff;background:rgba(255,255,255,.07)}
@@ -209,17 +211,139 @@ h2{font:800 clamp(2rem,4.6vw,3.4rem)/1.1 var(--f1);letter-spacing:-.025em;margin
 @media(max-width:900px){.skills-grid{grid-template-columns:1fr}.globe-card{max-width:380px}}
 
 /* ===== portfolio horizontal ===== */
-.hscroll{position:relative}
-.hsticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
-.htrack{display:flex;gap:44px;padding:0 6vw;will-change:transform;width:max-content}
-.hpanel{width:min(1020px,86vw);flex:none;display:grid;grid-template-columns:1.1fr .9fr;gap:36px;padding:30px;align-items:center;position:relative;overflow:hidden}
-.hpanel::before{content:attr(data-n);position:absolute;right:20px;bottom:-30px;font:800 11rem var(--f1);color:rgba(255,255,255,.035);line-height:1;pointer-events:none}
-.mock{border-radius:16px;overflow:hidden;background:#0a0f2c;border:1px solid var(--line);box-shadow:0 30px 70px -30px rgba(0,0,0,.8);transform:perspective(900px) rotateY(-7deg) rotateX(3deg);transition:.5s}
-.hpanel:hover .mock{transform:perspective(900px) rotateY(0) rotateX(0) scale(1.02)}
-.mock-bar{display:flex;gap:7px;padding:11px 14px;background:rgba(255,255,255,.04);align-items:center;position:relative;z-index:10}
-.mock-bar i{width:10px;height:10px;border-radius:50%;background:#ff5f57}.mock-bar i:nth-child(2){background:#febc2e}.mock-bar i:nth-child(3){background:#28c840}
-.mock-bar u{margin-left:10px;flex:1;height:18px;border-radius:9px;background:rgba(255,255,255,.06);text-decoration:none;font-size:.62rem;color:var(--mut);padding:0 10px;line-height:18px}
+.hscroll {
+  position: relative;
+  width: 100%;
+}
+.hsticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.htrack {
+  display: flex;
+  gap: 44px;
+  padding: 0 6vw;
+  will-change: transform;
+  width: max-content;
+  transition: transform 0.1s ease-out; /* Menjaga animasi pergeseran tetap mulus */
+}
+.hpanel {
+  width: min(1020px, 86vw);
+  flex: none;
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 36px;
+  padding: 30px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.hpanel::before {
+  content: attr(data-n);
+  position: absolute;
+  right: 20px;
+  bottom: -30px;
+  font: 800 11rem var(--f1);
+  color: rgba(255, 255, 255, .035);
+  line-height: 1;
+  pointer-events: none;
+}
+.mock {
+  border-radius: 16px;
+  overflow: hidden;
+  background: #0a0f2c;
+  border: 1px solid var(--line);
+  box-shadow: 0 30px 70px -30px rgba(0, 0, 0, .8);
+  transform: perspective(900px) rotateY(-7deg) rotateX(3deg);
+  transition: .5s;
+}
+.hpanel:hover .mock {
+  transform: perspective(900px) rotateY(0) rotateX(0) scale(1.02);
+}
+.mock-bar {
+  display: flex;
+  gap: 7px;
+  padding: 11px 14px;
+  background: rgba(255, 255, 255, .04);
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+.mock-bar i { width: 10px; height: 10px; border-radius: 50%; background: #ff5f57; }
+.mock-bar i:nth-child(2) { background: #febc2e; }
+.mock-bar i:nth-child(3) { background: #28c840; }
+.mock-bar u {
+  margin-left: 10px;
+  flex: 1;
+  height: 18px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, .06);
+  text-decoration: none;
+  font-size: .62rem;
+  color: var(--mut);
+  padding: 0 10px;
+  line-height: 18px;
+}
+.mock-body {
+  aspect-ratio: 16/10;
+  padding: 0;
+  background: #0a0f2c;
+  position: relative;
+  overflow: hidden;
+  perspective: 1200px;
+}
+.mock-slider {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  transform-style: preserve-3d;
+}
+.mock-slider img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  backface-visibility: hidden;
+  opacity: 0;
+  transform: rotateY(90deg) translateZ(250px);
+  transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 0.6s ease-in-out;
+}
+.mock-slider img.active {
+  opacity: 1;
+  transform: rotateY(0deg) translateZ(0);
+}
+.mock-slider img.exit-left {
+  opacity: 0;
+  transform: rotateY(-90deg) translateZ(250px);
+}
 
+.p-info small { color: var(--b); font: 600 .8rem var(--f1); letter-spacing: .2em; text-transform: uppercase; }
+.p-info h3 { font: 800 1.8rem/1.2 var(--f1); margin: 10px 0 12px; }
+.p-info p { color: var(--mut); font-size: .98rem; margin-bottom: 18px; }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.tags span { padding: 5px 13px; border-radius: 99px; background: rgba(145, 94, 255, .14); border: 1px solid rgba(145, 94, 255, .3); font-size: .78rem; color: #cdbbff; }
+.ribbon { position: absolute; top: 18px; left: 18px; z-index: 2; padding: 4px 12px; border-radius: 99px; background: rgba(244, 114, 182, .15); border: 1px solid rgba(244, 114, 182, .4); color: #ffb3d6; font-size: .7rem; font-weight: 600; }
+.hbar { width: min(300px, 60vw); height: 4px; border-radius: 4px; background: var(--line); margin: 34px auto 0; overflow: hidden; }
+.hbar i { display: block; height: 100%; background: var(--grad); transform-origin: left; transform: scaleX(0); }
+.hhead { padding: 0 6vw; margin-bottom: 34px; }
+
+@media(max-width: 900px) {
+  .hsticky { position: static; height: auto; overflow: visible; }
+  .htrack { flex-direction: column; width: auto; padding: 0 4vw; gap: 26px; transform: none !important; }
+  .hpanel { width: 100%; grid-template-columns: 1fr; }
+  .hbar { display: none; }
+  .mock { transform: none; }
+}
 /* MOCKUP BODY UTUH UNTUK WADAH KUBUS 3D */
 .mock-body{
   aspect-ratio: 16/10;
@@ -424,12 +548,23 @@ footer b{color:#fff}
 </style>
 </head>
 
+<body>
 
+<!-- ===== ELEMEN YANG SEBELUMNYA HILANG (dibutuhkan script) ===== -->
+<!-- preloader -->
+<div id="pre"><div class="pre-in"><div class="pre-ring"></div><b>Danis Atia</b><div class="pre-bar"><span></span></div></div></div>
+
+<!-- progress bar scroll -->
+<div id="prog"></div>
+
+<!-- background -->
+<div class="bg-fx"><i></i><i></i><i></i></div>
+<div class="glow" id="glow"></div>
 
 <!-- ================= NAV ================= -->
 <nav id="nav">
   <div class="wrap nav-in">
-    <a href="#home" class="logo"><span>DA</span>Danis<b class="grad">.</b></a>
+   <a href="#home" class="logo"><span><img src="img/danis-logo.jpg" alt="Danis"></span>Danis Atia Agara<b class="grad">.</b></a>
     <ul class="menu" id="menu">
       <li><a href="#home" class="act">Beranda</a></li>
       <li><a href="#about">Tentang</a></li>
@@ -820,22 +955,22 @@ certs: [
     {
       e: "🏅",
       t: "Sertifikat Kompetensi BNSP — Junior Web Developer",
-      s: "LSP Teknologi Digital · No. Reg. TIK 1565 31100 2025 · 18 Juli 2025",
-      link: "https://drive.google.com/YOUR_DRIVE_LINK_BNSP_HERE", // <- Ganti dengan link Google Drive Sertifikat BNSP kamu
+      s: "LSP Teknologi Digital · 18 Juli 2025",
+      link: "https://drive.google.com/file/d/1m7adkoJP5T5G5oGSgS7LM8i-0AKEwe6X/view?usp=sharing", // <- Ganti dengan link Google Drive Sertifikat BNSP kamu
       sample: false
     },
     {
       e: "💼",
       t: "Sertifikat Prakerin — PT INKA Multi Solusi",
       s: "Unit Kerja TI · Periode 05 Jan – 30 Jun 2026 · Predikat Sangat Baik (Nilai: 95)",
-      link: "https://drive.google.com/YOUR_DRIVE_LINK_INKA_HERE", // <- Ganti dengan link Google Drive Sertifikat PT INKA kamu
+      link: "https://drive.google.com/file/d/1-0muF5nXw6qLmPe96hX0NJ1P5RUdmzg4/view?usp=sharing", // <- Ganti dengan link Google Drive Sertifikat PT INKA kamu
       sample: false
     },
     {
       e: "🎓",
       t: "Sertifikat Akademik TI — Politeknik Negeri Madiun",
       s: "Politeknik Negeri Madiun (PNM) · Program Studi D3 Teknologi Informasi",
-      link: "https://drive.google.com/YOUR_DRIVE_LINK_PNM_HERE", // <- Ganti dengan link Drive pendukung/lainnya jika ada
+      link: "https://drive.google.com/file/d/1i_t_iO588T7QzX0Ph9B8g6SGazBvXbdp/view?usp=sharing", // <- Ganti dengan link Drive pendukung/lainnya jika ada
       sample: false
     }
   ],
@@ -950,9 +1085,7 @@ window.CONFIG = CONFIG;
         <small>Proyek 0${i+1}</small>
         <h3>${esc(p.t)}</h3>
         <p>${esc(p.d)}</p>
-        <div class="tags">${p.tags.map(t=>`<span>${esc(t)}</span>`).join('')}</div>
-        ${p.link?`<a class="btn btn-p btn-sm" href="${esc(p.link)}">Lihat Proyek →</a>`:`<span class="btn btn-g btn-sm" style="opacity:.6;cursor:default">Segera hadir</span>`}
-      </div>
+       
     </article>`;
   }).join('');
 
@@ -1041,7 +1174,7 @@ window.CONFIG = CONFIG;
       el.addEventListener('mouseleave',()=>el.style.transform='');
     });
     const glow=$('#glow');
-    addEventListener('pointermove',e=>{glow.style.transform=`translate(${e.clientX}px,${e.clientY}px) translate(-50%,-50%)`},{passive:true});
+    if(glow) addEventListener('pointermove',e=>{glow.style.transform=`translate(${e.clientX}px,${e.clientY}px) translate(-50%,-50%)`},{passive:true});
   }
 
   /* ---------- nav ---------- */
@@ -1054,21 +1187,53 @@ window.CONFIG = CONFIG;
   }),{rootMargin:'-45% 0px -50% 0px'});
   $$('header[id],section[id]').forEach(s=>so.observe(s));
   $('#up').onclick=()=>scrollTo({top:0,behavior:'smooth'});
+/* ---------- horizontal showcase ---------- */
+  const hs = $('#hs'), track = $('#htrack'), hbar = $('#hbar');
+  const desktop = () => window.innerWidth > 900;
 
-  /* ---------- horizontal showcase ---------- */
-  const hs=$('#hs'), track=$('#htrack'), hbar=$('#hbar');
-  const desktop=()=>innerWidth>900;
-  function sizeH(){
-    if(!desktop()){hs.style.height='auto';track.style.transform='';return}
-    hs.style.height=(track.scrollWidth-innerWidth+innerHeight)+'px';
+  function sizeH() {
+    if (!desktop()) {
+      if (hs) hs.style.height = 'auto';
+      if (track) track.style.transform = '';
+      return;
+    }
+    if (track && hs) {
+      // Menghitung total lebar geser yang tepat untuk container height
+      const scrollWidth = track.scrollWidth;
+      const amountToScroll = scrollWidth - window.innerWidth;
+      hs.style.height = (amountToScroll + window.innerHeight) + 'px';
+    }
   }
-  function updH(){
-    if(!desktop())return;
-    const dist=track.scrollWidth-innerWidth, r=hs.getBoundingClientRect();
-    const p=Math.min(Math.max(-r.top/Math.max(dist,1),0),1);
-    track.style.transform=`translate3d(${-p*dist}px,0,0)`;
-    hbar.style.transform=`scaleX(${p})`;
+
+  function updH() {
+    if (!desktop() || !hs || !track) return;
+    const rect = hs.getBoundingClientRect();
+    const trackWidth = track.scrollWidth;
+    const scrollDistance = trackWidth - window.innerWidth;
+
+    // Kalkulasi persentase posisi elemen terhadap viewport
+    if (rect.top <= 0 && rect.bottom >= window.innerHeight) {
+      const progress = Math.abs(rect.top) / scrollDistance;
+      const clampedProgress = Math.min(Math.max(progress, 0), 1);
+      
+      track.style.transform = `translate3d(${-clampedProgress * scrollDistance}px, 0, 0)`;
+      if (hbar) hbar.style.transform = `scaleX(${clampedProgress})`;
+    } else if (rect.top > 0) {
+      track.style.transform = `translate3d(0, 0, 0)`;
+      if (hbar) hbar.style.transform = `scaleX(0)`;
+    } else if (rect.bottom < window.innerHeight) {
+      track.style.transform = `translate3d(${-scrollDistance}px, 0, 0)`;
+      if (hbar) hbar.style.transform = `scaleX(1)`;
+    }
   }
+
+  // Pastikan dipanggil ulang saat halaman memuat gambar
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      sizeH();
+      updH();
+    }, 200);
+  });
 
   /* ---------- timeline fill ---------- */
   const tl=$('#tl'), fill=$('#tlFill');
@@ -1083,7 +1248,7 @@ window.CONFIG = CONFIG;
   let tick=false;
   function onScroll(){
     const y=scrollY, max=root.scrollHeight-innerHeight;
-    prog.style.transform=`scaleX(${max>0?y/max:0})`;
+    if(prog) prog.style.transform=`scaleX(${max>0?y/max:0})`;
     root.style.setProperty('--sy',y);
     nav.classList.toggle('sc',y>40);
     up.classList.toggle('show',y>700);
@@ -1104,8 +1269,9 @@ window.CONFIG = CONFIG;
   /* ---------- init ---------- */
   function init(){sizeH();onScroll()}
   init();
-  addEventListener('load',()=>{init();setTimeout(()=>$('#pre').classList.add('off'),350)});
-  setTimeout(()=>$('#pre').classList.add('off'),3500);
+  const pre=$('#pre');
+  addEventListener('load',()=>{init();setTimeout(()=>pre&&pre.classList.add('off'),350)});
+  setTimeout(()=>pre&&pre.classList.add('off'),3500);
 })();
 </script>
 
