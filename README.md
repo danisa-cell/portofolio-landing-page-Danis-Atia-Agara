@@ -31,7 +31,7 @@ Selamat datang di repositori portofolio digital interaktif saya! Website ini dir
 ## 🚀 Live Demo
 
 Kunjungi portofolio interaktif saya secara langsung pada tautan berikut:
-👉 **[https://danisa-cell.github.io/Portofolio-Landing-Page/](https://danisa-cell.github.io/Portofolio-Landing-Page/)**
+👉 **[https://danisa-cell.github.io/portofolio-landing-page-Danis-Atia-Agara/](https://danisa-cell.github.io/portofolio-landing-page-Danis-Atia-Agara/)**
 
 ---
 
